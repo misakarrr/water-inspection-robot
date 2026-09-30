@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Isaac Sim / Omniverse（场景可由脚本重建，不入库）
+.omniverse/
+isaac/scenes/*.usd
+isaac/scenes/*.usda
+isaac/scenes/*.usdz
+!isaac/scenes/.gitkeep
+
+# ROS 2
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+*.bag
+*.db3
+
+# 数据与模型（体积大）
+datasets/*
+!datasets/.gitkeep
+models/*
+!models/.gitkeep
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
