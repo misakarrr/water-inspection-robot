@@ -1,5 +1,8 @@
 # 在 AutoDL 私有云（RTX 4090）上跑 Isaac Sim — 详细方案
 
+> **已弃用（2026-10-02）**：本文档基于旧基线 Isaac Sim 6.1 编写，当前导航原型已改为 Ubuntu 22.04 + ROS 2 Humble + Isaac Sim 4.x + RTX 3090 本地仿真，本文仅作云 GPU 部署的历史参考。
+> 后续如需用 AutoDL 跑 Replicator / 训练，请按当前 Isaac Sim 补丁版本的官方兼容矩阵重新核对驱动与安装方式。当前设计见 [superpowers/specs/2026-10-02-water-inspection-nav-design.md](superpowers/specs/2026-10-02-water-inspection-nav-design.md)。
+
 > 适用场景：实验室自建（或租用）的 AutoDL 风格 GPU 云，提供 RTX 4090 容器实例。
 > 目标：把 Isaac Sim 跑起来，用于水利巡检机器狗项目的**合成数据生成（Replicator）、模型训练、Nav2 无头联调**。
 > 基准：Isaac Sim 6.1（若驱动不达标则降级，见第 1 节）。

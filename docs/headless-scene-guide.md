@@ -1,12 +1,15 @@
 # 无头（headless）模式下在 Isaac Sim 里搭场景
 
-配套脚本：[build_scene.py](build_scene.py)
+配套脚本：[isaac/scripts/build_scene.py](../isaac/scripts/build_scene.py)
+
+> **定位（2026-10-02 更新）**：本地 RTX 3090 工作站有显示器，日常搭场景、调 Nav2、看 RViz 直接走 GUI；本指南只用于**批量 / 远程作业**——云端 GPU 实例（AutoDL 等）、SSH 无显示器环境、CI 或无人值守生成场景变体。
+> `build_scene.py` 默认 GUI，无头运行需显式加 `--headless`。
 
 ---
 
 ## 1. 核心思路
 
-**没有 GUI，场景就不是"拖出来"的，而是"写出来"的。**
+**在无显示器 / 远程环境里没有 GUI，场景就不是"拖出来"的，而是"写出来"的。**
 
 ```
 场景 = 一个 Python 脚本 + 一份参数表  →  生成一个 .usd 文件
@@ -24,7 +27,7 @@
 
 | 方式 | 做法 | 适用 |
 |---|---|---|
-| **A. 脚本生成**（推荐） | Python + USD API 在 headless 下建场景并保存 | 本项目主路线 |
+| **A. 脚本生成**（推荐） | Python + USD API 建场景并保存；本地可开 GUI，远程加 `--headless` | 本项目主路线（可版本管理、可复现） |
 | **B. 本地 GUI 搭好上传** | 本地有显卡的机器用 GUI 搭，存 USD，上传到云端跑 | 快速起步、复杂造型 |
 | **C. 直接写 .usda 文本** | `.usda` 是纯文本，编辑器手写/改 | 微调坐标、加语义标签 |
 
@@ -34,15 +37,26 @@
 
 ## 3. 跑起来
 
+本地有显示器时默认 GUI：
+
+```bash
+# 仓库根目录执行（用 Isaac Sim 自带的 python.sh，不要用系统 python）
+$ISAACSIM_PATH/python.sh isaac/scripts/build_scene.py \
+    --out isaac/scenes/water_inspection.usd --usda --shots \
+    --shotdir isaac/scenes/shots
+```
+
+远程 / 云端无显示器时必须加 `--headless`：
+
 ```bash
 # 1) 上传脚本到数据盘
-scp build_scene.py root@<host>:/root/autodl-tmp/work/
+scp isaac/scripts/build_scene.py root@<host>:/root/autodl-tmp/work/
 
-# 2) 执行（用 Isaac Sim 自带的 python.sh，不要用系统 python）
+# 2) 执行
 cd /root/autodl-tmp/work
 $ISAACSIM_PATH/python.sh build_scene.py \
     --out /root/autodl-tmp/work/water_inspection.usd \
-    --usda --shots
+    --headless --usda --shots
 
 # 3) 取回验收图和 USD
 #    图片：/root/autodl-tmp/work/shots/{top,along_a,wall,corner}/*.png

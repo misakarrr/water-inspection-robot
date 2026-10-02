@@ -1,5 +1,9 @@
 # 水利巡检机器狗 · Isaac Sim 上手路线图（零基础版）
 
+> **已弃用（2026-10-02）**：本文档基于旧基线（Isaac Sim 6.1 + ROS 2 Jazzy）编写，导航相关的版本选择与阶段顺序已被当前设计取代，仅作背景参考；其中的病害识别、SDG 与训练内容可作为后续（非导航）参考。
+> 当前导航基线：Ubuntu 22.04 + ROS 2 Humble + Isaac Sim 4.x（4.5.0 候选）+ RTX 3090 本地仿真。
+> 当前设计：[superpowers/specs/2026-10-02-water-inspection-nav-design.md](superpowers/specs/2026-10-02-water-inspection-nav-design.md)；实施计划：[superpowers/plans/2026-10-02-water-inspection-nav.md](superpowers/plans/2026-10-02-water-inspection-nav.md)。
+
 > 目标：在 Isaac Sim 中搭建"巡检道路 + 混凝土墙 + 转弯 + 障碍物 + 禁入区"的水利巡检场景，
 > 用 ROS 2 Nav2 实现自主巡检，并用合成数据训练"裂缝 / 渗水"病害识别模型，最终形成可运行闭环。
 > 基准版本：Isaac Sim 6.1（2026-09 GA）+ ROS 2 Jazzy（以官方 install_ros 兼容矩阵为准）。
