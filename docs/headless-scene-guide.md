@@ -63,7 +63,7 @@ $ISAACSIM_PATH/python.sh build_scene.py \
 #    场景：/root/autodl-tmp/work/water_inspection.usd
 ```
 
-脚本会输出：
+脚本会输出（以下为示例，prim 数量与包围盒随场景参数变化）：
 
 ```
 [check] metersPerUnit = 1.0  (应为 1.0)

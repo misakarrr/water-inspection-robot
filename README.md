@@ -74,8 +74,8 @@ ln -s /mnt/nas/water-inspection/models models
 
 ## 场景脚本
 
-`isaac/scripts/build_scene.py` —— 无头生成巡检场景（L 形道路 + 混凝土墙 + 障碍 + 禁入区 + 巡检点），
-同时输出 4 张验收视角图（俯视 / 沿路 / 贴墙 / 转弯）。
+`isaac/scripts/build_scene.py` —— 生成巡检场景（L 形道路 + 混凝土墙 + 障碍 + 禁入区 + 巡检点），
+默认 GUI，远程 / 批处理加 `--headless`；`--shots` 输出 4 张验收视角图（俯视 / 沿路 / 贴墙 / 转弯）。
 
 ```bash
 $ISAACSIM_PATH/python.sh isaac/scripts/build_scene.py \
