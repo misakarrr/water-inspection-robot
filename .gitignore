@@ -11,6 +11,10 @@ isaac/scenes/*.usda
 isaac/scenes/*.usdz
 !isaac/scenes/.gitkeep
 
+# 运行产物（验收截图、任务日志、SLAM 地图）
+runs/
+isaac/scenes/shots/
+
 # ROS 2
 ros2_ws/build/
 ros2_ws/install/
