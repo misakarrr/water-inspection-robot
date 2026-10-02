@@ -1,14 +1,18 @@
 """
-headless 场景生成脚本 —— 水利巡检场景
+场景生成脚本 —— 水利巡检场景
 L 形巡检道路 + 混凝土墙 + 障碍物 + 禁入区
 
-在无 GUI（无头）环境下把场景"写"出来并存成 USD，之后可以：
+把场景"写"出来并存成 USD，之后可以：
   - 直接用于 Isaac Sim 物理/传感器仿真
   - 作为 Replicator 合成数据的场景
   - 烘焙 2D 占据栅格给 ROS 2 Nav2 用
 
 用法（Isaac Sim 自带的 python.sh）：
-  $ISAACSIM_PATH/python.sh build_scene.py --out /root/autodl-tmp/work/water_inspection.usd --shots
+  # 本地有显示器：默认 GUI，不加 --headless
+  $ISAACSIM_PATH/python.sh build_scene.py --out isaac/scenes/water_inspection.usd --shots
+
+  # 云端/无显示器/批处理：显式加 --headless
+  $ISAACSIM_PATH/python.sh build_scene.py --out water_inspection.usd --headless --shots
 
 注意：API 在不同 Isaac Sim 版本间有差异（6.0 起 Core API 有迁移），
       本脚本只用「pure USD (pxr) + Replicator」这些跨版本稳定的接口，
@@ -40,19 +44,22 @@ CFG = dict(
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--out", default="water_inspection.usd", help="输出 USD 路径")
-ap.add_argument("--shots", action="store_true", help="渲染验收图（无 GUI 下用来看场景）")
+ap.add_argument("--headless", action="store_true",
+                help="无头模式（云端 / 无显示器 / 批处理）；默认 GUI（本地调试）")
+ap.add_argument("--shots", action="store_true", help="渲染验收图（无头下替代 GUI 查看）")
 ap.add_argument("--shotdir", default="./shots", help="验收图输出目录")
 ap.add_argument("--usda", action="store_true", help="同时导出 .usda 文本版（便于 git diff）")
 args = ap.parse_args()
 
 # ---------------------------------------------------------------- 1. 启动 Isaac Sim
-# headless=True 表示不创建窗口；必须在 import omni / pxr 之前执行
+# 默认 GUI（本地调试）；--headless 用于云端 / 无显示器 / 批处理。
+# SimulationApp 必须在 import omni / pxr 之前执行
 try:
     from isaacsim import SimulationApp            # Isaac Sim 4.5+
 except ImportError:
     from omni.isaac.kit import SimulationApp      # Isaac Sim 4.0 ~ 4.2
 
-sim_app = SimulationApp({"headless": True})
+sim_app = SimulationApp({"headless": args.headless})
 
 import omni.usd                                    # noqa: E402
 from pxr import Usd, UsdGeom, UsdShade, UsdPhysics, Gf, Sdf   # noqa: E402
