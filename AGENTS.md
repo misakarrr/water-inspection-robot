@@ -55,6 +55,7 @@ colcon test-result --verbose
 
 - **按阶段提交**：每完成一个逻辑单元就提交，不攒大提交
 - **推送须授权**：`git push` 必须先得到用户明确同意，不得自行推送
+- **设计与计划须先头脑风暴**：进行设计或编写实施计划前，必须先使用 `brainstorming` skill 探索意图、需求与方案
 - 文档与提交说明可用中文；提交标题用英文 conventional commit 前缀：`docs:` / `feat:` / `fix:` / `chore:`
 - 不提交生成物与大数据：USD/USDA/USDZ、bag、`ros2_ws/build|install|log`、`runs/`、验收截图、数据集、模型权重
 - `build_scene.py` 只用 pure USD (pxr) + Replicator 接口，新场景代码沿用该风格以保持跨版本稳定
